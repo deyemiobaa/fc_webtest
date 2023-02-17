@@ -3,16 +3,16 @@ import {
 	createBrowserRouter,
 	Route,
 	createRoutesFromElements,
-	Navigate,
 } from "react-router-dom"
 import Login from "../pages/Login"
 import CompanyProfile from "../pages/CompanyProfile"
+import Layout from "../components/Layout"
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path="/"
-			element={<Navigate to="/login" />}>
+			element={<Layout />}>
 			<Route
 				path="/login"
 				element={<Login />}
