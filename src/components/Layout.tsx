@@ -8,7 +8,7 @@ export default function Layout(): JSX.Element {
 	}, [])
 
 	return (
-		<main className="min-h-screen w-full">
+		<main className="w-full">
 			<Outlet />
 		</main>
 	)
