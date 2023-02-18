@@ -1,6 +1,26 @@
-import React from "react"
+import React, { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import LoginContext from "../context/user"
 
 export default function Login(): JSX.Element {
+	const [showToast, setShowToast] = useState(false)
+  const { email, password, setEmail, setPassword } = useContext(LoginContext)
+  const navigate = useNavigate()
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+		e.preventDefault()
+		if (email === "moneeyapp@admin.com" && password === "password") {
+			navigate("/profile")
+		} else {
+      setShowToast(true)
+      setTimeout(() => {
+        setShowToast(false)
+      }, 3000)
+      setEmail("moneeyapp@admin.com")
+      setPassword("password")
+		}
+	}
+
 	return (
 		<section className="min-h-screen bg-[#FEF0F2] lg:grid lg:grid-cols-[43%_auto]">
 			<div className="hidden bg-white py-11 px-16 md:block">
@@ -44,7 +64,8 @@ export default function Login(): JSX.Element {
 								Manage your Businesses
 							</h3>
 							<p className="mt-1 text-xs text-lighter">
-								Easily see how much your businesses are earning  on each transaction and watch your earnings rise. 
+								Easily see how much your businesses are earning on each
+								transaction and watch your earnings rise.
 							</p>
 						</div>
 					</div>
@@ -59,14 +80,17 @@ export default function Login(): JSX.Element {
 								Delegate to Staff
 							</h3>
 							<p className="mt-1 text-xs text-lighter">
-								Easily see how much your businesses are earning  on each transaction and watch your earnings rise. 
+								Easily see how much your businesses are earning on each
+								transaction and watch your earnings rise.
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className="mx-auto w-full max-w-[630px] px-5 py-28">
-				<form className="flex w-full flex-col gap-12 rounded-xl bg-white px-4 py-10 shadow-form md:px-16">
+				<form
+					onSubmit={handleSubmit}
+					className="flex w-full flex-col gap-12 rounded-xl bg-white px-4 py-10 shadow-form md:px-16">
 					<div>
 						<h2 className="text-lg font-semibold tracking-[-0.2px] md:text-2xl">
 							Login to your dashboard
@@ -77,6 +101,11 @@ export default function Login(): JSX.Element {
 					</div>
 
 					<div>
+						{showToast ? (
+							<p className="mb-3 text-sm text-red-600">
+								Invalid email or password
+							</p>
+						) : null}
 						<div className="mb-6">
 							<label
 								htmlFor="email"
@@ -86,18 +115,28 @@ export default function Login(): JSX.Element {
 
 							<input
 								type="email"
+								id="email"
+								value={email}
+								onChange={(e) => {
+									setEmail(e.target.value)
+								}}
 								className="w-full appearance-none rounded-md border border-dark px-5 py-2.5 text-dark focus:outline-none"
 							/>
 						</div>
 						<div className="mb-1">
 							<label
-								htmlFor="email"
+								htmlFor="password"
 								className="mb-2 block text-sm">
 								Password
 							</label>
 
 							<input
 								type="password"
+								id="password"
+								onChange={(e) => {
+									setPassword(e.target.value)
+								}}
+								value={password}
 								className="w-full appearance-none rounded-md border border-dark px-5 py-2.5 text-dark focus:outline-none"
 							/>
 						</div>
