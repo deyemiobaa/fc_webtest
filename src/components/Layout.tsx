@@ -1,10 +1,13 @@
 import React, { useEffect } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate, useLocation } from "react-router-dom"
 
 export default function Layout(): JSX.Element {
 	const navigate = useNavigate()
+	const location = useLocation()
 	useEffect(() => {
-		navigate("/login")
+		if (location.pathname === "/") {
+			navigate("/login")
+		}
 	}, [])
 
 	return (
