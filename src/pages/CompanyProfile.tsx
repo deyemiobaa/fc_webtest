@@ -1,7 +1,18 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
 
 export default function CompanyProfile(): JSX.Element {
+  const navigate = useNavigate()
+  useEffect(() => { 
+    const activeTimeout = setTimeout(() => { 
+      navigate("/login")
+    }, 120000)
+
+    return () => {
+      clearTimeout(activeTimeout)
+    }
+  }, [])
 	return (
 		<section className="min-h-screen pb-9">
 			<Header />
